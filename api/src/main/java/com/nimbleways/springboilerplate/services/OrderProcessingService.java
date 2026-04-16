@@ -6,6 +6,7 @@ import com.nimbleways.springboilerplate.repositories.OrderRepository;
 import com.nimbleways.springboilerplate.services.product.ProductHandlerRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.NoSuchElementException;
 
@@ -16,6 +17,7 @@ public class OrderProcessingService {
     private final OrderRepository orderRepository;
     private final ProductHandlerRegistry handlerRegistry;
 
+    @Transactional
     public Long processOrder(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new NoSuchElementException("Order not found: " + orderId));

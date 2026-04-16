@@ -47,7 +47,7 @@ class NormalProductHandlerTests {
 
         assertThat(product.getAvailable()).isZero();
         verify(notificationService).sendDelayNotification(15, "USB Cable");
-        verify(productRepository).save(product);
+        verify(productRepository, never()).save(product);
     }
 
     @Test

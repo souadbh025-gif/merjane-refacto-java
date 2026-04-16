@@ -28,7 +28,6 @@ public class NormalProductHandler implements ProductHandler {
         }
         if (product.getLeadTime() > 0) {
             notificationService.sendDelayNotification(product.getLeadTime(), product.getName());
-            productRepository.save(product);
         }
     }
 }

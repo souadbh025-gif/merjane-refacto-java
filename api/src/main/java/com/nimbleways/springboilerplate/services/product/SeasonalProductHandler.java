@@ -37,10 +37,9 @@ public class SeasonalProductHandler implements ProductHandler {
         }
         if (product.getSeasonStartDate().isAfter(today)) {
             notificationService.sendOutOfStockNotification(product.getName());
-            productRepository.save(product);
             return;
         }
-        notifyDelay(product);
+        notificationService.sendDelayNotification(product.getLeadTime(), product.getName());
     }
 
     private boolean isInSeason(Product product, LocalDate today) {
@@ -50,10 +49,5 @@ public class SeasonalProductHandler implements ProductHandler {
 
     private boolean restockWouldMissSeason(Product product, LocalDate today) {
         return today.plusDays(product.getLeadTime()).isAfter(product.getSeasonEndDate());
-    }
-
-    private void notifyDelay(Product product) {
-        productRepository.save(product);
-        notificationService.sendDelayNotification(product.getLeadTime(), product.getName());
     }
 }

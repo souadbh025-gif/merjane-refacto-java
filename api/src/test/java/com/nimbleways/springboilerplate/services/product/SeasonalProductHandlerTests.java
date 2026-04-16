@@ -65,7 +65,7 @@ class SeasonalProductHandlerTests {
         handler.handle(product);
 
         verify(notificationService).sendOutOfStockNotification("Grapes");
-        verify(productRepository).save(product);
+        verify(productRepository, never()).save(product);
         verify(notificationService, never()).sendDelayNotification(anyInt(), anyString());
     }
 
@@ -78,6 +78,6 @@ class SeasonalProductHandlerTests {
         handler.handle(product);
 
         verify(notificationService).sendDelayNotification(5, "Watermelon");
-        verify(productRepository).save(product);
+        verify(productRepository, never()).save(product);
     }
 }
